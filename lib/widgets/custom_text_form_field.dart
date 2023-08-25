@@ -29,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
     this.focusedBorderDecoration,
     this.disabledBorderDecoration,
     this.validator,
+    this.onTap,
+    this.readOnly
   }) : super(
           key: key,
         );
@@ -83,6 +85,10 @@ class CustomTextFormField extends StatelessWidget {
 
   final FormFieldValidator<String>? validator;
 
+  final Function()? onTap;
+
+  final bool? readOnly;
+
   @override
   Widget build(BuildContext context) {
     return alignment != null
@@ -107,6 +113,8 @@ class CustomTextFormField extends StatelessWidget {
           maxLines: maxLines ?? 1,
           decoration: decoration,
           validator: validator,
+          onTap: onTap,
+          readOnly: readOnly ?? false,
         ),
       );
   InputDecoration get decoration => InputDecoration(

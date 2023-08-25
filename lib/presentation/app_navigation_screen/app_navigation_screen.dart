@@ -2,7 +2,6 @@ import 'bloc/app_navigation_bloc.dart';
 import 'models/app_navigation_model.dart';
 import 'package:adbhut_s_application4/core/app_export.dart';
 import 'package:flutter/material.dart';
-import 'package:adbhut_s_application4/presentation/k3_bottomsheet/k3_bottomsheet.dart';
 
 class AppNavigationScreen extends StatelessWidget {
   const AppNavigationScreen({Key? key}) : super(key: key);
@@ -192,67 +191,61 @@ class AppNavigationScreen extends StatelessWidget {
                                                                 color: appTheme
                                                                     .blueGray400))
                                                       ]))),
+                                          Container(
+                                              decoration:
+                                                  AppDecoration.fill1,
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                            padding:
+                                                                getPadding(
+                                                                    left:
+                                                                        20,
+                                                                    top: 10,
+                                                                    right:
+                                                                        20,
+                                                                    bottom:
+                                                                        10),
+                                                            child: Text(
+                                                                "lbl_5162"
+                                                                    .tr,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        appTheme
+                                                                            .black900,
+                                                                    fontSize:
+                                                                        getFontSize(
+                                                                            20),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontWeight:
+                                                                        FontWeight.w400)))),
+                                                    Padding(
+                                                        padding: getPadding(
+                                                            top: 5),
+                                                        child: Divider(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            thickness:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            color: appTheme
+                                                                .blueGray400))
+                                                  ])),
                                           GestureDetector(
-                                              onTap: () {
-                                                onTaptf2(context);
-                                              },
-                                              child: Container(
-                                                  decoration:
-                                                      AppDecoration.fill1,
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Padding(
-                                                                padding:
-                                                                    getPadding(
-                                                                        left:
-                                                                            20,
-                                                                        top: 10,
-                                                                        right:
-                                                                            20,
-                                                                        bottom:
-                                                                            10),
-                                                                child: Text(
-                                                                    "lbl_5162"
-                                                                        .tr,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            appTheme
-                                                                                .black900,
-                                                                        fontSize:
-                                                                            getFontSize(
-                                                                                20),
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontWeight:
-                                                                            FontWeight.w400)))),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                top: 5),
-                                                            child: Divider(
-                                                                height:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                thickness:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                color: appTheme
-                                                                    .blueGray400))
-                                                      ]))),
-                                          GestureDetector(
-                                              onTap: () {
-                                                onTaptf3(context);
-                                              },
+                                             
                                               child: Container(
                                                   decoration:
                                                       AppDecoration.fill1,
@@ -306,120 +299,112 @@ class AppNavigationScreen extends StatelessWidget {
                                                                 color: appTheme
                                                                     .blueGray400))
                                                       ]))),
-                                          GestureDetector(
-                                              onTap: () {
-                                                onTaptf4(context);
-                                              },
-                                              child: Container(
-                                                  decoration:
-                                                      AppDecoration.fill1,
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Padding(
-                                                                padding:
-                                                                    getPadding(
-                                                                        left:
-                                                                            20,
-                                                                        top: 10,
-                                                                        right:
-                                                                            20,
-                                                                        bottom:
-                                                                            10),
-                                                                child: Text(
-                                                                    "lbl_5164"
-                                                                        .tr,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            appTheme
-                                                                                .black900,
-                                                                        fontSize:
-                                                                            getFontSize(
-                                                                                20),
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontWeight:
-                                                                            FontWeight.w400)))),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                top: 5),
-                                                            child: Divider(
-                                                                height:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                thickness:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                color: appTheme
-                                                                    .blueGray400))
-                                                      ]))),
-                                          GestureDetector(
-                                              onTap: () {
-                                                onTaptf5(context);
-                                              },
-                                              child: Container(
-                                                  decoration:
-                                                      AppDecoration.fill1,
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Padding(
-                                                                padding:
-                                                                    getPadding(
-                                                                        left:
-                                                                            20,
-                                                                        top: 10,
-                                                                        right:
-                                                                            20,
-                                                                        bottom:
-                                                                            10),
-                                                                child: Text(
-                                                                    "lbl_5175"
-                                                                        .tr,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            appTheme
-                                                                                .black900,
-                                                                        fontSize:
-                                                                            getFontSize(
-                                                                                20),
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontWeight:
-                                                                            FontWeight.w400)))),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                top: 5),
-                                                            child: Divider(
-                                                                height:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                thickness:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                color: appTheme
-                                                                    .blueGray400))
-                                                      ]))),
+                                          Container(
+                                              decoration:
+                                                  AppDecoration.fill1,
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                            padding:
+                                                                getPadding(
+                                                                    left:
+                                                                        20,
+                                                                    top: 10,
+                                                                    right:
+                                                                        20,
+                                                                    bottom:
+                                                                        10),
+                                                            child: Text(
+                                                                "lbl_5164"
+                                                                    .tr,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        appTheme
+                                                                            .black900,
+                                                                    fontSize:
+                                                                        getFontSize(
+                                                                            20),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontWeight:
+                                                                        FontWeight.w400)))),
+                                                    Padding(
+                                                        padding: getPadding(
+                                                            top: 5),
+                                                        child: Divider(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            thickness:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            color: appTheme
+                                                                .blueGray400))
+                                                  ])),
+                                          Container(
+                                              decoration:
+                                                  AppDecoration.fill1,
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                            padding:
+                                                                getPadding(
+                                                                    left:
+                                                                        20,
+                                                                    top: 10,
+                                                                    right:
+                                                                        20,
+                                                                    bottom:
+                                                                        10),
+                                                            child: Text(
+                                                                "lbl_5175"
+                                                                    .tr,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        appTheme
+                                                                            .black900,
+                                                                    fontSize:
+                                                                        getFontSize(
+                                                                            20),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontWeight:
+                                                                        FontWeight.w400)))),
+                                                    Padding(
+                                                        padding: getPadding(
+                                                            top: 5),
+                                                        child: Divider(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            thickness:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            color: appTheme
+                                                                .blueGray400))
+                                                  ])),
                                           GestureDetector(
                                               onTap: () {
                                                 onTaptf6(context);
@@ -477,120 +462,112 @@ class AppNavigationScreen extends StatelessWidget {
                                                                 color: appTheme
                                                                     .blueGray400))
                                                       ]))),
-                                          GestureDetector(
-                                              onTap: () {
-                                                onTaptf7(context);
-                                              },
-                                              child: Container(
-                                                  decoration:
-                                                      AppDecoration.fill1,
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Padding(
-                                                                padding:
-                                                                    getPadding(
-                                                                        left:
-                                                                            20,
-                                                                        top: 10,
-                                                                        right:
-                                                                            20,
-                                                                        bottom:
-                                                                            10),
-                                                                child: Text(
-                                                                    "lbl_5165"
-                                                                        .tr,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            appTheme
-                                                                                .black900,
-                                                                        fontSize:
-                                                                            getFontSize(
-                                                                                20),
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontWeight:
-                                                                            FontWeight.w400)))),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                top: 5),
-                                                            child: Divider(
-                                                                height:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                thickness:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                color: appTheme
-                                                                    .blueGray400))
-                                                      ]))),
-                                          GestureDetector(
-                                              onTap: () {
-                                                onTaptf8(context);
-                                              },
-                                              child: Container(
-                                                  decoration:
-                                                      AppDecoration.fill1,
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Padding(
-                                                                padding:
-                                                                    getPadding(
-                                                                        left:
-                                                                            20,
-                                                                        top: 10,
-                                                                        right:
-                                                                            20,
-                                                                        bottom:
-                                                                            10),
-                                                                child: Text(
-                                                                    "lbl_5166"
-                                                                        .tr,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            appTheme
-                                                                                .black900,
-                                                                        fontSize:
-                                                                            getFontSize(
-                                                                                20),
-                                                                        fontFamily:
-                                                                            'Roboto',
-                                                                        fontWeight:
-                                                                            FontWeight.w400)))),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                top: 5),
-                                                            child: Divider(
-                                                                height:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                thickness:
-                                                                    getVerticalSize(
-                                                                        1),
-                                                                color: appTheme
-                                                                    .blueGray400))
-                                                      ]))),
+                                          Container(
+                                              decoration:
+                                                  AppDecoration.fill1,
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                            padding:
+                                                                getPadding(
+                                                                    left:
+                                                                        20,
+                                                                    top: 10,
+                                                                    right:
+                                                                        20,
+                                                                    bottom:
+                                                                        10),
+                                                            child: Text(
+                                                                "lbl_5165"
+                                                                    .tr,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        appTheme
+                                                                            .black900,
+                                                                    fontSize:
+                                                                        getFontSize(
+                                                                            20),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontWeight:
+                                                                        FontWeight.w400)))),
+                                                    Padding(
+                                                        padding: getPadding(
+                                                            top: 5),
+                                                        child: Divider(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            thickness:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            color: appTheme
+                                                                .blueGray400))
+                                                  ])),
+                                          Container(
+                                              decoration:
+                                                  AppDecoration.fill1,
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                            padding:
+                                                                getPadding(
+                                                                    left:
+                                                                        20,
+                                                                    top: 10,
+                                                                    right:
+                                                                        20,
+                                                                    bottom:
+                                                                        10),
+                                                            child: Text(
+                                                                "lbl_5166"
+                                                                    .tr,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        appTheme
+                                                                            .black900,
+                                                                    fontSize:
+                                                                        getFontSize(
+                                                                            20),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontWeight:
+                                                                        FontWeight.w400)))),
+                                                    Padding(
+                                                        padding: getPadding(
+                                                            top: 5),
+                                                        child: Divider(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            thickness:
+                                                                getVerticalSize(
+                                                                    1),
+                                                            color: appTheme
+                                                                .blueGray400))
+                                                  ])),
                                           GestureDetector(
                                               onTap: () {
                                                 onTaptf9(context);
@@ -671,7 +648,7 @@ class AppNavigationScreen extends StatelessWidget {
   /// to push the named route for the k1Screen.
   onTaptf1(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.k1Screen,
+      AppRoutes.addEmployeeScreen,
     );
   }
 
@@ -680,11 +657,6 @@ class AppNavigationScreen extends StatelessWidget {
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
   /// to push the named route for the k2Screen.
-  onTaptf2(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.k2Screen,
-    );
-  }
 
   /// Displays a bottom sheet widget using the [showModalBottomSheet] method
   /// of the [Scaffold] class with [isScrollControlled] set to true.
@@ -692,43 +664,26 @@ class AppNavigationScreen extends StatelessWidget {
   /// The bottom sheet is built using the [K3Bottomsheet]
   /// class and the [builder] method of the bottom sheet is passed the
   /// [BuildContext] object.
-  onTaptf3(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) => K3Bottomsheet.builder(context),
-        isScrollControlled: true);
-  }
 
   /// Navigates to the k4Screen when the action is triggered.
   ///
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
   /// to push the named route for the k4Screen.
-  onTaptf4(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.k4Screen,
-    );
-  }
+  
 
   /// Navigates to the k5Screen when the action is triggered.
   ///
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
   /// to push the named route for the k5Screen.
-  onTaptf5(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.k5Screen,
-    );
-  }
 
-  /// Navigates to the k6Screen when the action is triggered.
   ///
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
-  /// to push the named route for the k6Screen.
   onTaptf6(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.k6Screen,
+      AppRoutes.editEmployeeScreen,
     );
   }
 
@@ -737,22 +692,13 @@ class AppNavigationScreen extends StatelessWidget {
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
   /// to push the named route for the k7Screen.
-  onTaptf7(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.k7Screen,
-    );
-  }
 
   /// Navigates to the k8Screen when the action is triggered.
   ///
   /// The [BuildContext] parameter is used to build the navigation stack.
   /// When the action is triggered, this function uses the `NavigatorService`
   /// to push the named route for the k8Screen.
-  onTaptf8(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.k8Screen,
-    );
-  }
+ 
 
   /// Navigates to the k9Screen when the action is triggered.
   ///
