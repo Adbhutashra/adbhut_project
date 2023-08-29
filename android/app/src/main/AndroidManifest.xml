@@ -10,7 +10,7 @@
 
 
     <application
-        android:label="adbhut_s_application4"
+        android:label="adbhut application"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
