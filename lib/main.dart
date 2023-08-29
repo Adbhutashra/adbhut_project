@@ -1,3 +1,4 @@
+import 'package:adbhut_s_application4/data/databaseHelper/databaseHelper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,8 @@ void main() {
     DeviceOrientation.portraitUp,
   ]).then((value) {
     PrefUtils().init();
+    DatabaseHelper().database;
+    DatabaseHelper().initDatabase();
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     runApp(MyApp());
   });

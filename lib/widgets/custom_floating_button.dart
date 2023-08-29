@@ -1,67 +1,48 @@
-import 'package:adbhut_s_application4/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class CustomFloatingButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final double height;
+  final double width;
+  final BoxDecoration decoration;
+  final Color backgroundColor;
+  final Widget child;
+
   CustomFloatingButton({
-    Key? key,
-    this.alignment,
-    this.margin,
-    this.backgroundColor,
-    this.onTap,
-    this.width,
-    this.height,
-    this.decoration,
-    this.child,
-  }) : super(
-          key: key,
-        );
-
-  final Alignment? alignment;
-
-  final EdgeInsetsGeometry? margin;
-
-  final Color? backgroundColor;
-
-  final VoidCallback? onTap;
-
-  final double? width;
-
-  final double? height;
-
-  final BoxDecoration? decoration;
-
-  final Widget? child;
+    required this.onTap,
+    required this.height,
+    required this.width,
+    required this.decoration,
+    required this.backgroundColor,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return alignment != null
-        ? Align(
-            alignment: alignment ?? Alignment.center,
-            child: fabWidget,
-          )
-        : fabWidget;
-  }
-
-  Widget get fabWidget => Padding(
-        padding: margin ?? EdgeInsets.zero,
-        child: FloatingActionButton(
-          backgroundColor: backgroundColor,
-          onPressed: onTap,
-          child: Container(
-            alignment: Alignment.center,
-            width: getSize(width ?? 0),
-            height: getSize(height ?? 0),
-            decoration: decoration ??
-                BoxDecoration(
-                  color: appTheme.blue500,
-                  borderRadius: BorderRadius.circular(
-                    getHorizontalSize(
-                      8.00,
-                    ),
-                  ),
-                ),
-            child: child,
-          ),
+    return FloatingActionButton(
+      onPressed: onTap,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // Adjust the corner radius
+      ),
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(10), // Same corner radius as shape
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 3),
+            ),
+          ],
+          
         ),
-      );
+        child: Center(child: child),
+      ),
+    );
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:adbhut_s_application4/core/app_export.dart';
 import 'package:adbhut_s_application4/data/databaseHelper/databaseHelper.dart';
+import 'package:adbhut_s_application4/data/models/deletedEmployeeModel.dart';
+import 'package:adbhut_s_application4/data/models/employeeModel.dart';
 import 'package:adbhut_s_application4/presentation/editEmployee/models/editEmployee_model.dart';
 import 'package:adbhut_s_application4/widgets/app_bar/appbar_title.dart';
 import 'package:adbhut_s_application4/widgets/app_bar/custom_app_bar.dart';
@@ -8,6 +10,7 @@ import 'package:adbhut_s_application4/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'bloc/editEmployee_bloc.dart';
+import 'package:intl/intl.dart';
 
 class EditEmployeeScreen extends StatefulWidget {
   const EditEmployeeScreen({Key? key})
@@ -30,11 +33,14 @@ class EditEmployeeScreen extends StatefulWidget {
 }
 
 class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
+  final dbHelper = DatabaseHelper();
+   DateTime _chosenDate = DateTime.now();
   final TextEditingController namesController = TextEditingController();
   final TextEditingController datesController = TextEditingController();
   final TextEditingController roleController = TextEditingController();
   final TextEditingController todayController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var id;
   List<SelectionPopupModel> items = [
     SelectionPopupModel(
       id: 1,
@@ -65,10 +71,13 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                   Navigator.pop(context);
+                                  datesController.text = DateFormat('d MMM, yyyy').format(DateTime.now());
+                                },
                                 child: const Text(
                                   'Today',
                                   style: TextStyle(color: Colors.blue),
@@ -80,10 +89,12 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                 setNextMonday(context , datesController);
+                                },
                                 child: const Text(
                                   'Next Monday',
                                   style: TextStyle(color: Colors.blue),
@@ -98,11 +109,13 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                             Expanded(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                   backgroundColor:
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setNextTuesday(context , datesController);
+                                },
                                 child: const Text(
                                   'Next Tuesday',
                                   style: TextStyle(color: Colors.blue),
@@ -114,10 +127,12 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setNextWeek(context , datesController);
+                                },
                                 child: const Text(
                                   'After 1 week',
                                   style: TextStyle(color: Colors.blue),
@@ -126,30 +141,48 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                             ),
                           ],
                         ),
-                        TableCalendar(
-                            focusedDay: DateTime.now(),
-                            headerStyle: HeaderStyle(
-                                leftChevronMargin: EdgeInsets.only(left: 50),
-                                rightChevronMargin: EdgeInsets.only(right: 50),
-                                titleCentered: true,
-                                formatButtonVisible: false),
-                            onDaySelected: (selectedDay, focusedDay) {
-                              set(() {
-                                controller.text = selectedDay.toString();
-                              });
-                            },
-                            firstDay: DateTime.utc(2009, 12, 31),
-                            lastDay: DateTime.utc(2030, 12, 31)),
+                         TableCalendar(
+                          focusedDay: _chosenDate,
+                          headerStyle: HeaderStyle(
+                            leftChevronMargin: EdgeInsets.only(left: 50),
+                            rightChevronMargin: EdgeInsets.only(right: 50),
+                            titleCentered: true,
+                            formatButtonVisible: false,
+                          ),
+                          selectedDayPredicate: (day) {
+                            return isSameDay(_chosenDate, day);
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
+                            set(() {
+                              controller.text =
+                                  DateFormat('d MMM, yyyy').format(focusedDay);
+                              _chosenDate = selectedDay;
+                            });
+                          },
+                          firstDay: DateTime.utc(2009, 12, 31),
+                          lastDay: DateTime.utc(2030, 12, 31),
+                        ),
                         Divider(color: Colors.grey),
                         Row(
                           children: [
-                            Icon(Icons.calendar_month),
-                            SizedBox(width: 110),
-                            ElevatedButton(
+                             Icon(Icons.calendar_month),
+                            SizedBox(width: 5),
+
+                            Text(DateFormat('d MMM, yyyy').format(_chosenDate)),
+                            SizedBox(width: 25),
+                           ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Cancel")),
+                                style: CustomButtonStyles.fillBlue50.copyWith(
+                    fixedSize: MaterialStateProperty.all<Size>(Size(
+                  getHorizontalSize(
+                    80,
+                  ),
+                  getVerticalSize(
+                    40,
+                  )))),
+                                child: Text("Cancel", style: CustomTextStyles.titleSmallBlue500),),
                             SizedBox(width: 20),
                             ElevatedButton(
                                 onPressed: () {
@@ -176,15 +209,14 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
   }
 
   getEmployees() async {
-    final dbHelper = DatabaseHelper();
     final employees = await dbHelper.getEmployee();
-    employees.forEach((employee) {
-      print(
-          'User: ${employee.name}, Role: ${employee.role}, Date: ${employee.date}');
-      namesController.text = employee.name;
-      roleController.text = employee.role;
-      datesController.text = employee.date;
-    });
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    var index = args['index'];
+    namesController.text = employees[index].name;
+    roleController.text = employees[index].role;
+    datesController.text = employees[index].date;
+    id = employees[index].id;
   }
 
   @override
@@ -206,7 +238,17 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
           ),
           actions: [
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                await dbHelper.deleteItem(id!);
+                setState(() {
+                  dbHelper.insertDeletedEmployee(DeletedEmployeeModel(
+                      name:  namesController.text,
+                      role: roleController.text,
+                      startDate: datesController.text,
+                      endDate: DateFormat('d MMM, yyyy').format(DateTime.now()) ));
+                });
+                Navigator.pushNamed(context, '/employeelist_screen');
+              },
               child: CustomImageView(
                 svgPath: ImageConstant.imgDeletefill0wgPrimary,
                 height: getSize(
@@ -423,195 +465,7 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
             ),
           ),
         ),
-        // Container(
-        //   width: double.maxFinite,
-        //   padding: getPadding(
-        //     left: 16,
-        //     top: 24,
-        //     right: 16,
-        //     bottom: 24,
-        //   ),
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     children: [
-        //       BlocSelector<EditEmployeeBloc, EditEmployeeState, TextEditingController?>(
-        //         selector: (state) => state.nameController,
-        //         builder: (context, nameController) {
-        //           return CustomTextFormField(
-        //             controller: nameController,
-        //             contentPadding: getPadding(
-        //               top: 10,
-        //               right: 30,
-        //               bottom: 10,
-        //             ),
-        //             textStyle: theme.textTheme.bodyLarge!,
-        //             hintText: "lbl_joseph_manadan".tr,
-        //             hintStyle: theme.textTheme.bodyLarge!,
-        //             prefix: Container(
-        //               margin: getMargin(
-        //                 left: 8,
-        //                 top: 8,
-        //                 right: 12,
-        //                 bottom: 8,
-        //               ),
-        //               child: CustomImageView(
-        //                 svgPath:
-        //                     ImageConstant.imgPersonfill0wght300grad0opsz2421,
-        //               ),
-        //             ),
-        //             prefixConstraints: BoxConstraints(
-        //               maxHeight: getVerticalSize(
-        //                 40,
-        //               ),
-        //             ),
-        //           );
-        //         },
-        //       ),
-        //       BlocSelector<EditEmployeeBloc, EditEmployeeState, EditEmployeeModel?>(
-        //         selector: (state) => state.editEmployeeModelObj,
-        //         builder: (context, editEmployeeModelObj) {
-        //           return CustomDropDown(
-        //             icon: Container(
-        //               margin: getMargin(
-        //                 left: 30,
-        //                 right: 8,
-        //               ),
-        //               child: CustomImageView(
-        //                 svgPath: ImageConstant
-        //                     .imgArrowdropdownfill1wght400grad0opsz243,
-        //               ),
-        //             ),
-        //             hintText: "msg_flutter_developer".tr,
-        //             margin: getMargin(
-        //               top: 23,
-        //             ),
-        //             textStyle: theme.textTheme.bodyLarge!,
-        //             items: editEmployeeModelObj?.dropdownItemList ?? [],
-        //             prefix: Container(
-        //               margin: getMargin(
-        //                 left: 8,
-        //                 top: 8,
-        //                 right: 12,
-        //                 bottom: 8,
-        //               ),
-        //               child: CustomImageView(
-        //                 svgPath: ImageConstant.imgBag,
-        //               ),
-        //             ),
-        //             prefixConstraints: BoxConstraints(
-        //               maxHeight: getVerticalSize(
-        //                 40,
-        //               ),
-        //             ),
-        //             contentPadding: getPadding(
-        //               top: 10,
-        //               bottom: 10,
-        //             ),
-        //             onChanged: (value) {
-        //               context
-        //                   .read<EditEmployeeBloc>()
-        //                   .add(ChangeDropDownEvent(value: value));
-        //             },
-        //           );
-        //         },
-        //       ),
-        //       Padding(
-        //         padding: getPadding(
-        //           top: 23,
-        //           bottom: 5,
-        //         ),
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: [
-        //             Container(
-        //               padding: getPadding(
-        //                 all: 8,
-        //               ),
-        //               decoration: AppDecoration.outline1.copyWith(
-        //                 borderRadius: BorderRadiusStyle.roundedBorder4,
-        //               ),
-        //               child: Row(
-        //                 children: [
-        //                   CustomImageView(
-        //                     svgPath:
-        //                         ImageConstant.imgEventfill0wght300grad0opsz2411,
-        //                     height: getSize(
-        //                       24,
-        //                     ),
-        //                     width: getSize(
-        //                       24,
-        //                     ),
-        //                   ),
-        //                   Padding(
-        //                     padding: getPadding(
-        //                       left: 9,
-        //                       top: 4,
-        //                       bottom: 2,
-        //                     ),
-        //                     child: Text(
-        //                       "lbl_5_sep_2022".tr,
-        //                       overflow: TextOverflow.ellipsis,
-        //                       textAlign: TextAlign.left,
-        //                       style: CustomTextStyles.bodyMedium14,
-        //                     ),
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //             CustomImageView(
-        //               svgPath: ImageConstant.imgArrowrightalt,
-        //               height: getSize(
-        //                 20,
-        //               ),
-        //               width: getSize(
-        //                 20,
-        //               ),
-        //               margin: getMargin(
-        //                 top: 10,
-        //                 bottom: 10,
-        //               ),
-        //             ),
-        //             Container(
-        //               padding: getPadding(
-        //                 all: 8,
-        //               ),
-        //               decoration: AppDecoration.outline1.copyWith(
-        //                 borderRadius: BorderRadiusStyle.roundedBorder4,
-        //               ),
-        //               child: Row(
-        //                 children: [
-        //                   CustomImageView(
-        //                     svgPath:
-        //                         ImageConstant.imgEventfill0wght300grad0opsz2411,
-        //                     height: getSize(
-        //                       24,
-        //                     ),
-        //                     width: getSize(
-        //                       24,
-        //                     ),
-        //                   ),
-        //                   Padding(
-        //                     padding: getPadding(
-        //                       left: 9,
-        //                       top: 4,
-        //                       bottom: 2,
-        //                     ),
-        //                     child: Text(
-        //                       "lbl_30_sep_2022".tr,
-        //                       overflow: TextOverflow.ellipsis,
-        //                       textAlign: TextAlign.left,
-        //                       style: CustomTextStyles.bodyMedium14,
-        //                     ),
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        
         bottomNavigationBar: Container(
           margin: getMargin(
             left: 16,
@@ -637,6 +491,24 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                 buttonTextStyle: CustomTextStyles.titleSmallBlue500,
               ),
               CustomElevatedButton(
+                onTap: () async {
+                  if (namesController.text == "" ||
+                      roleController.text == "" ||
+                      datesController.text == "") {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Please Enter Fields"),
+                    ));
+                  } else {
+                    final newEmployee = EmployeeModel(
+                      id: id,
+                      name: namesController.text,
+                      role: roleController.text,
+                      date: datesController.text,
+                    );
+                    await dbHelper.updateEmployee(id, newEmployee);
+                    Navigator.pushNamed(context, '/employeelist_screen');
+                  }
+                },
                 text: "lbl_save".tr,
                 margin: getMargin(
                   left: 16,
@@ -662,6 +534,9 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+       shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0))),
       builder: (BuildContext context) {
         return Container(
           height: 250,

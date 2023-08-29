@@ -7,11 +7,11 @@ import 'package:adbhut_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:adbhut_s_application4/widgets/custom_elevated_button.dart';
 import 'package:adbhut_s_application4/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:flutter/services.dart';
 import 'bloc/addEmployee_bloc.dart';
 import 'models/addEmployee_model.dart';
+import 'package:intl/intl.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   AddEmployeeScreen({Key? key})
@@ -34,6 +34,7 @@ class AddEmployeeScreen extends StatefulWidget {
 }
 
 class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
+  DateTime _chosenDate = DateTime.now();
   final dbHelper = DatabaseHelper();
   late TextEditingController namesController = TextEditingController();
   late TextEditingController datesController = TextEditingController();
@@ -70,10 +71,15 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  datesController.text =
+                                      DateFormat('d MMM, yyyy')
+                                          .format(DateTime.now());
+                                },
                                 child: const Text(
                                   'Today',
                                   style: TextStyle(color: Colors.blue),
@@ -85,10 +91,12 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setNextMonday(context, datesController);
+                                },
                                 child: const Text(
                                   'Next Monday',
                                   style: TextStyle(color: Colors.blue),
@@ -103,11 +111,13 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                             Expanded(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                 backgroundColor:
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setNextTuesday(context, datesController);
+                                },
                                 child: const Text(
                                   'Next Tuesday',
                                   style: TextStyle(color: Colors.blue),
@@ -119,10 +129,12 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 222, 239, 248),
+                                      Color.fromARGB(255, 242, 249, 253),
                                   minimumSize: Size(10, 30), // NEW
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setNextWeek(context, datesController);
+                                },
                                 child: const Text(
                                   'After 1 week',
                                   style: TextStyle(color: Colors.blue),
@@ -132,29 +144,49 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                           ],
                         ),
                         TableCalendar(
-                            focusedDay: DateTime.now(),
-                            headerStyle: HeaderStyle(
-                                leftChevronMargin: EdgeInsets.only(left: 50),
-                                rightChevronMargin: EdgeInsets.only(right: 50),
-                                titleCentered: true,
-                                formatButtonVisible: false),
-                            onDaySelected: (selectedDay, focusedDay) {
-                              set(() {
-                                controller.text = selectedDay.toString();
-                              });
-                            },
-                            firstDay: DateTime.utc(2009, 12, 31),
-                            lastDay: DateTime.utc(2030, 12, 31)),
+                          focusedDay: _chosenDate,
+                          headerStyle: HeaderStyle(
+                            leftChevronMargin: EdgeInsets.only(left: 50),
+                            rightChevronMargin: EdgeInsets.only(right: 50),
+                            titleCentered: true,
+                            formatButtonVisible: false,
+                          ),
+                          selectedDayPredicate: (day) {
+                            return isSameDay(_chosenDate, day);
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
+                            set(() {
+                              controller.text =
+                                  DateFormat('d MMM, yyyy').format(focusedDay);
+                              _chosenDate = selectedDay;
+                            });
+                          },
+                          firstDay: DateTime.utc(2009, 12, 31),
+                          lastDay: DateTime.utc(2030, 12, 31),
+                        ),
                         Divider(color: Colors.grey),
                         Row(
                           children: [
                             Icon(Icons.calendar_month),
-                            SizedBox(width: 110),
+                            SizedBox(width: 5),
+                            Text(DateFormat('d MMM, yyyy').format(_chosenDate)),
+                            SizedBox(width: 25),
                             ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Cancel")),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              style: CustomButtonStyles.fillBlue50.copyWith(
+                                  fixedSize:
+                                      MaterialStateProperty.all<Size>(Size(
+                                          getHorizontalSize(
+                                            80,
+                                          ),
+                                          getVerticalSize(
+                                            40,
+                                          )))),
+                              child: Text("Cancel",
+                                  style: CustomTextStyles.titleSmallBlue500),
+                            ),
                             SizedBox(width: 20),
                             ElevatedButton(
                                 onPressed: () {
@@ -171,12 +203,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
             );
           });
         });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
@@ -260,6 +286,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   builder: (context, addEmployeeModelObj) {
                     return CustomTextFormField(
                       onTap: () {
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
                         _openBottomSheet(context);
                       },
                       controller: roleController,
@@ -469,6 +496,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0))),
       builder: (BuildContext context) {
         return Container(
           height: 250,
@@ -490,4 +520,3 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
     );
   }
 }
-
